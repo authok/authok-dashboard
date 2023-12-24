@@ -1,0 +1,1 @@
+参考实现: https://github.com/ant-design/ant-design-pro/tree/all-blocks/src/pages/editor/flow/components/EditorDetailPanel

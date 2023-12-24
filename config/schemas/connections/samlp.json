@@ -1,0 +1,215 @@
+{
+  "type": "object",
+  "properties": {
+    "signInEndpoint": {
+      "x-component": "Input",
+      "x-component-props": {
+        "placeholder": "https://samlp.example.com/login"
+      },
+      "title": "登录URL",
+      "required": true,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ]
+      }
+    },
+    "cert": {
+      "x-component": "TextArea",
+      "x-component-props": {
+        "width": "100%",
+        "rows": "8"
+      },
+      "title": "X509 签名证书",
+      "required": true,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ],
+        "extra": "PEM 或者 CER 格式编码的 SAMLP 服务器公钥"
+      }
+    },
+    "enableSignout": {
+      "x-component": "Switch",
+      "title": "是否允许退登",
+      "default": false,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical"
+      }
+    },
+    "signOutEndpoint": {
+      "x-component": "Input",
+      "title": "退登URL",
+      "x-component-props": {
+        "placeholder": "https://samlp.example.com/logout"
+      },
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ],
+        "extra": "可选: 为空则默认为登录URL"
+      },
+      "x-reactions": {
+        "dependencies": [".enableSignout"],
+        "when": "{{$deps[0]}}",
+        "fulfill": {
+          "state": {
+            "visible": true
+          }
+        },
+        "otherwise": {
+          "state": {
+            "visible": false
+          }
+        }
+      }
+    },
+    "user_id_attribute": {
+      "x-component": "Input",
+      "title": "用户ID属性",
+      "x-component-props": {
+        "placeholder": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+      },
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ],
+        "extra": "可选: 这是SAML标记中的属性，将映射到 AuthOK 中的 user_id 属性"
+      }
+    },
+    "debug": {
+      "x-component": "Switch",
+      "title": "调试模式",
+      "default": false,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "extra": "在身份验证过程中包含更多详细的日志记录。"
+      }
+    },
+    "signSAMLRequest": {
+      "x-component": "Switch",
+      "title": "签名请求",
+      "default": false,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "extra": "启用后，SAML身份验证请求将被签名。下载证书并将其交给SAMLP，SAMLP将接收已签名的断言，以便验证签名。"
+      }
+    },
+    "signatureAlgorithm": {
+      "x-component": "Select",
+      "title": "签名请求算法",
+      "enum": [
+				{ "label": "RSA-SHA256", "value": "rsa-sha256" },
+				{ "label": "RSA-SHA1", "value": "rsa-sha1" }
+      ],
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical"
+      }
+    },
+    "digestAlgorithm": {
+      "x-component": "Select",
+      "title": "签名请求算法摘要",
+      "enum": [
+				{ "label": "SHA256", "value": "sha256" },
+				{ "label": "SHA1", "value": "sha1" }
+      ],
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical"
+      }
+    },
+    "protocolBinding": {
+      "x-component": "Select",
+      "title": "协议绑定",
+      "enum": [
+				{ "label": "HTTP-Redirect", "value": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" },
+				{ "label": "HTTP-Post", "value": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" }
+      ],
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical"
+      }
+    },
+    "signingCert": {
+      "x-component": "Input",
+      "x-component-props": {
+        "hidden": true
+      }
+    },
+    "thumbprints": {
+      "x-component": "Input",
+      "x-component-props": {
+        "hidden": true
+      }
+    },
+    "expires": {
+      "x-component": "Input",
+      "x-component-props": {
+        "hidden": true
+      }
+    },
+    "requestTemplate": {
+      "x-component": "CodeEditor",
+      "x-component-props": {
+        "height": "200px",
+        "options": {
+          "minimap": {
+            "enabled": false
+          }
+        }
+      },
+      "title": "请求模版(可选)",
+      "default": "<samlp:AuthnRequest xmlns:samlp=\"urn:oasis:names:tc:SAML:2.0:protocol\" \n\t@@AssertServiceURLAndDestination@@\n\tID=\"@@ID@@\" \n\tIssueInstant=\"@@IssueInstant@@\" ProtocolBinding=\"@@ProtocolBinding@@\" Version=\"2.0\">\n\t<saml:Issuer xmlns:saml=\"urn:oasis:names:tc:SAML:2.0:assertion\">@@Issuer@@</saml:Issuer>\n</samlp:AuthnRequest>",
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical"
+      }
+    }
+  }
+}

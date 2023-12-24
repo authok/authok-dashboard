@@ -1,0 +1,22 @@
+@import '~antd/es/style/themes/default.less';
+
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+
+.action {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: all 0.3s;
+  > span {
+    vertical-align: middle;
+  }
+  
+  &:hover {
+    background: #252a3d;
+  }
+  &:global(.opened) {
+    background: #252a3d;
+  }
+}

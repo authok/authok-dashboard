@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "properties": {
+    "corp_id": {
+      "x-component": "Input",
+      "title": "Corp ID",
+      "required": true,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ],
+        "extra": "{{link('如何获取 Corp ID', '#')}}"
+      }
+    },
+    "secret": {
+      "x-component": "Input",
+      "title": "Secret",
+      "required": true,
+      "x-decorator": "FormItem",
+      "x-decorator-props": {
+        "labelAlign": "left",
+        "wrapperWidth": "100%",
+        "layout": "vertical",
+        "rules": [
+          {
+            "required": true,
+            "message": "此项为必填项"
+          }
+        ],
+        "extra": "{{link('如何获取 Secret', '#')}}"
+      }
+    }
+  }
+}
